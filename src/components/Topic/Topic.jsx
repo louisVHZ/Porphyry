@@ -15,12 +15,13 @@ class Topic extends Component {
 
   render() {
     let subtopics = this._getSubtopics();
-    let isSelected = this.props.selection.includes(this.props.id)? 'Selected' : '';
+    let isSelected = (this.props.selection.includes(this.props.id)? 'Selected' : '') + " " + (this.props.exclusion.includes(this.props.id)? 'Excluded' : '');
     let topic = 'Topic ' + this.state.fold;
     let items = this.props.topicsItems.get(this.props.id);
     let count = (items) ? items.size : '';
     let uri = '?' + queryString.stringify({
-      t: toggle(this.props.selection, this.props.id)
+      t: toggle(this.props.selection, this.props.id),
+      e: this.props.exclusion
     });
 
     let bullet = getBullet(this.state.fold);
@@ -40,7 +41,7 @@ class Topic extends Component {
     const topic = this.props.topics[this.props.id];
     return (topic.narrower||[]).sort(by('name')).map(t =>
       <Topic key={t.id} id={t.id} name={t.name} topics={this.props.topics}
-        selection={this.props.selection} topicsItems={this.props.topicsItems} />
+        selection={this.props.selection} exclusion={this.props.exclusion} topicsItems={this.props.topicsItems} />
     );
   }
 
