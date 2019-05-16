@@ -100,25 +100,33 @@ class Portfolio extends Component {
       }
       let uri = '?' + queryString.stringify({
         t: this._toggleTopic(this.selection, t),
+          e: this.exclusion
+      });
+      let excludeUri = '?' + queryString.stringify({
+        t: this._toggleTopic(this.selection, t),
+          e: this._toggleTopic(this.exclusion, t)
       });
       return <span className="badge badge-pill badge-light TopicTag">
-        {topic.name} <Link to="" className="badge badge-pill badge-dark oi oi-minus" title="Exclure"> </Link><Link to={uri} className="badge badge-pill badge-dark oi oi-x" title="Déselectionner"> </Link>
+        {topic.name} <Link to={excludeUri} className="badge badge-pill badge-dark oi oi-minus" title="Exclure"> </Link><Link to={uri} className="badge badge-pill badge-dark oi oi-x" title="Déselectionner"> </Link>
       </span>;
     });
-    console.log(topics);
     topics.push(this.exclusion.map(t => {
         let topic = this._getTopic(t);
         if (!topic) {
             return 'Thème inconnu';
         }
         let uri = '?' + queryString.stringify({
+            t: this.selection,
+            e: this._toggleTopic(this.exclusion, t)
+        });
+        let includeUri = '?' + queryString.stringify({
             t: this._toggleTopic(this.selection, t),
+            e: this._toggleTopic(this.exclusion, t)
         });
         return <span className="badge badge-pill badge-light TopicTag">
-        {topic.name} <Link to="" className="badge badge-pill badge-dark oi oi-minus" title="Exclure"> </Link><Link to={uri} className="badge badge-pill badge-dark oi oi-x" title="Déselectionner"> </Link>
+        {topic.name} <Link to={includeUri} className="badge badge-pill badge-dark oi oi-plus" title="Inclure"> </Link><Link to={uri} className="badge badge-pill badge-dark oi oi-x" title="Déselectionner"> </Link>
       </span>;
     }));
-    console.log(topics);
     return topics.length ? topics : 'Tous les items';
   }
 
