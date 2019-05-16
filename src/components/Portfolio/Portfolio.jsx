@@ -99,12 +99,26 @@ class Portfolio extends Component {
           return 'Thème inconnu';
       }
       let uri = '?' + queryString.stringify({
-        t: this._toggleTopic(this.selection, t)
+        t: this._toggleTopic(this.selection, t),
       });
       return <span className="badge badge-pill badge-light TopicTag">
-        {topic.name} <Link to={uri} className="badge badge-pill badge-dark oi oi-x" title="Déselectionner"> </Link>
+        {topic.name} <Link to="" className="badge badge-pill badge-dark oi oi-minus" title="Exclure"> </Link><Link to={uri} className="badge badge-pill badge-dark oi oi-x" title="Déselectionner"> </Link>
       </span>;
     });
+    console.log(topics);
+    topics.push(this.exclusion.map(t => {
+        let topic = this._getTopic(t);
+        if (!topic) {
+            return 'Thème inconnu';
+        }
+        let uri = '?' + queryString.stringify({
+            t: this._toggleTopic(this.selection, t),
+        });
+        return <span className="badge badge-pill badge-light TopicTag">
+        {topic.name} <Link to="" className="badge badge-pill badge-dark oi oi-minus" title="Exclure"> </Link><Link to={uri} className="badge badge-pill badge-dark oi oi-x" title="Déselectionner"> </Link>
+      </span>;
+    }));
+    console.log(topics);
     return topics.length ? topics : 'Tous les items';
   }
 
@@ -120,6 +134,10 @@ class Portfolio extends Component {
     let selection = queryString.parse(window.location.search).t;
     this.selection = (selection instanceof Array)? selection
       : (selection)? [selection]
+      : [];
+    let exclusion = queryString.parse(window.location.search).e;
+    this.exclusion = (exclusion instanceof Array)? exclusion
+      : (exclusion)? [exclusion]
       : [];
   }
 
@@ -138,13 +156,13 @@ class Portfolio extends Component {
     return Array.prototype.concat(...this._getItemTopicsPaths(item));
   }
 
-  _isSelected(item) {
-    return includes(this._getRecursiveItemTopics(item), this.selection);
+  _isSelected(item, list) {
+    return includes(this._getRecursiveItemTopics(item), list);
   }
 
   _updateSelectedItems() {
     let selectedItems = this.state.items
-      .filter(e => this._isSelected(e, this.selection));
+      .filter(e => this._isSelected(e, this.selection) && ((this.exclusion.length > 0)?!this._isSelected(e, this.exclusion):true));
     let topicsItems = new Map();
     for (let e of selectedItems) {
       for (let t of this._getRecursiveItemTopics(e)) {
