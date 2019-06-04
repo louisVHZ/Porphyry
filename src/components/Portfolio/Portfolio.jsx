@@ -165,13 +165,13 @@ class Portfolio extends Component {
     return Array.prototype.concat(...this._getItemTopicsPaths(item));
   }
 
-  _isSelected(item, list) {
-    return includes(this._getRecursiveItemTopics(item), list);
+  _isSelected(item, list, union = false) {
+    return includes(this._getRecursiveItemTopics(item), list, union);
   }
 
   _updateSelectedItems() {
     let selectedItems = this.state.items
-      .filter(e => this._isSelected(e, this.selection) && ((this.exclusion.length > 0)?!this._isSelected(e, this.exclusion):true));
+      .filter(e => this._isSelected(e, this.selection) && ((this.exclusion.length > 0)?!this._isSelected(e, this.exclusion, true):true));
     let topicsItems = new Map();
     for (let e of selectedItems) {
       for (let t of this._getRecursiveItemTopics(e)) {
@@ -251,10 +251,13 @@ class Portfolio extends Component {
   }
 }
 
-function includes(array1, array2) {
+function includes(array1, array2, union) {
   let set1 = new Set(array1);
-  return array2.map(e => set1.has(e))
-    .reduce((c1,c2) => c1 && c2, true);
+  let arrayHasValue = array2.map(e => set1.has(e));
+  if (union)
+   return arrayHasValue.reduce((c1,c2) => c1 || c2, false);
+  else
+    return arrayHasValue.reduce((c1,c2) => c1 && c2, true);
 }
 
 function push(map, topicId, itemId) {
