@@ -124,7 +124,7 @@ class Portfolio extends Component {
                 t: this._toggleTopic(this.selection, t),
                 e: this._toggleTopic(this.exclusion, t)
             });
-            return <span className="badge badge-pill badge-light TopicTag">
+            return <span className="badge badge-pill badge-light TopicTag text-danger">
             {topic.name} <Link to={includeUri} className="badge badge-pill badge-dark oi oi-plus" title="Inclure"> </Link><Link to={uri} className="badge badge-pill badge-dark oi oi-x" title="Déselectionner"> </Link>
           </span>;
         }));
