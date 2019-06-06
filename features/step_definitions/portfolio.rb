@@ -157,6 +157,10 @@ Quand("l'utilisateur supprime la rubrique {string}") do |item|
   page.driver.browser.action.send_keys(:delete).perform()
 end
 
+Quand("on exclue la rubrique {string}") do |string|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
 # Outcomes
 
 Alors("le titre affiché est {string}") do |portfolio|
