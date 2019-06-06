@@ -8,8 +8,8 @@ Fonctionnalité: Faire une recherche multiple exclusive sur les catégories.
     Soit la rubrique "1625" rattachée au point de vue "Histoire de l'art"
 
   Scénario:
-    Quand("on sélectionne la rubrique {string}") "Armoiries du donateur"
-    Quand("on sélectionne la rubrique {string}") "1625"
+    Quand on sélectionne la rubrique"Armoiries du donateur"
+    Quand on sélectionne la rubrique "1625"
     Quand on exclue la rubrique "1625"
     Alors l'item "SMV 102" n'est pas affiché
     Et l'item "SMV 100" est affiché
