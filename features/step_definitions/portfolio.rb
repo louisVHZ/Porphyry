@@ -157,8 +157,8 @@ Quand("l'utilisateur supprime la rubrique {string}") do |item|
   page.driver.browser.action.send_keys(:delete).perform()
 end
 
-Quand("on exclue la rubrique {string}") do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+Quand("on exclue la rubrique {string}") do |topic|
+  click_on topic
 end
 
 # Outcomes
