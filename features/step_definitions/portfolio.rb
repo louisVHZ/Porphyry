@@ -146,5 +146,5 @@ Quand("on valide la saisie du nom {string} pour le nouveau point de vue") do |po
 end
 
 Alors("le point de vue nommé {string} est créé") do |pointOfVue|
-  exect(page).to have_content pointOfVue
+  expect(page).to have_content pointOfVue
 end
