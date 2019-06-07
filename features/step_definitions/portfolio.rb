@@ -99,6 +99,10 @@ Soit("les rubriques {string} sont sélectionnées") do |topics|
   visit uri
 end
 
+Soit("la rubrique {string} est visible et sélectionnée") do |topic|
+    click_on topic
+end
+
 Soit("un visiteur sur la page d'édition du point de vue {string}") do |viewpoint|
   visit "/"
   viewpoint_item = page.find('h3', text: viewpoint, match: :prefer_exact)
@@ -157,7 +161,7 @@ Quand("l'utilisateur supprime la rubrique {string}") do |item|
   page.driver.browser.action.send_keys(:delete).perform()
 end
 
-Quand("on exclue la rubrique {string}") do |topic|
+Quand("l'utilisateur exclue la rubrique {string}") do |topic|
   click_on topic
 end
 

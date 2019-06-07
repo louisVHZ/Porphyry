@@ -8,8 +8,11 @@ Fonctionnalité: Faire une recherche multiple exclusive sur les catégories.
     Soit la rubrique "1625" rattachée au point de vue "Histoire de l'art"
 
   Scénario:
-    Quand on sélectionne la rubrique "Armoiries du donateur"
-    Quand on sélectionne la rubrique "1625"
+    Soit "vitraux" le portfolio ouvert
+    Soit "Donateur" une des rubriques développées
+    Soit "Datation" une des rubriques développées
+    Soit la rubrique "Armoiries du donateur" est visible et sélectionnée
+    Soit la rubrique "1625" est visible et sélectionnée
     Quand on exclue la rubrique "1625"
     Alors l'item "SMV 102" n'est pas affiché
     Et l'item "SMV 100" est affiché
