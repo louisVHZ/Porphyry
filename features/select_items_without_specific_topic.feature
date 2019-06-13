@@ -13,7 +13,7 @@ Fonctionnalité: Faire une recherche multiple exclusive sur les catégories.
     Soit "Datation" une des rubriques développées
     Soit la rubrique "Armoiries du donateur" est visible et sélectionnée
     Soit la rubrique "1625" est visible et sélectionnée
-    Quand on exclue la rubrique "1625"
+    Quand l'utilisateur exclue la rubrique "1625"
     Alors l'item "SMV 102" n'est pas affiché
     Et l'item "SMV 100" est affiché
     Et l'item "SMV 101" est affiché
