@@ -173,3 +173,13 @@ end
 Alors ("l'item {string} n'est pas affiché") do |item|
   expect(page).not_to have_content item
 end
+
+Quand("on valide la saisie du nom {string} pour le nouveau point de vue") do |pointOfVue|
+  click_button "Nouveau point de vue"
+  fill_in "newTitle", with: pointOfVue
+  click_button "+"
+end
+
+Alors("le point de vue nommé {string} est créé") do |pointOfVue|
+  expect(page).to have_content pointOfVue
+end

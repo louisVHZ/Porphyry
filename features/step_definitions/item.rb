@@ -48,3 +48,7 @@ Alors("une des rubriques de l'item est {string}") do |topic|
   expect(page).to have_content(topic)
 end
 # -----
+
+Alors("une des ressources de l'item est {string}") do |resource|
+  expect(page).to have_content(resource)
+end
