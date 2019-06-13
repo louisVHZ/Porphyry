@@ -138,6 +138,7 @@ class Item extends Component {
     let uri = this.props.match.url;
     let params = this.props.match.params;
     return hypertopic.getView(uri).then((data) => {
+      console.log(data);
       let item = data[params.corpus][params.item];
       let itemTopics = (item.topic) ? groupBy(item.topic, ['viewpoint']) : {};
       let topics=this.state.item.topic || {};
@@ -296,7 +297,6 @@ class Item extends Component {
       })
       .catch(error => console.error(error));
   }
-
 
   _removeTopic(topicToDelete) {
     if (window.confirm('Voulez-vous réellement que l\'item affiché ne soit plus décrit à l\'aide de cette rubrique ?')) {

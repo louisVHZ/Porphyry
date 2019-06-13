@@ -1,9 +1,8 @@
 require 'capybara/cucumber'
-require 'capybara/cuprite'
+require 'selenium/webdriver'
 
 Capybara.run_server = false
-Capybara.default_driver = :cuprite
-Capybara.javascript_driver = :cuprite
+Capybara.default_driver = :selenium_chrome_headless
 Capybara.app_host = "http://localhost:3000"
 Capybara.default_max_wait_time = 10
 
@@ -22,7 +21,20 @@ def getUUID(itemName)
   return uuid
 end
 
+
+def getPassword(username)
+  password = nil
+  case username
+  when "alice"
+    password = "whiterabbit"
+  end
+  return password
+end
 # Conditions
+
+Soit("l'item {string} existant") do |item|
+  # On the remote servers
+end
 
 Soit("le point de vue {string} rattaché au portfolio {string}") do |viewpoint, portfolio|
   # On the remote servers
@@ -95,6 +107,14 @@ Soit("la liste des rubriques sélectionnées est vide") do
   visit "/"
 end
 
+Soit ("l'utilisateur {string} connecté") do |username|
+  click_link('Se connecter...')
+  find('input[placeholder="nom d\'utilisateur"]').set username
+  find("input[placeholder='mot de passe']").set getPassword(username)
+  click_on('Se connecter')
+  expect(page).to have_content(username)
+end
+
 # Events
 
 Quand("un visiteur ouvre la page d'accueil du site") do
@@ -115,6 +135,14 @@ end
 
 Quand("l'utilisateur exclue la rubrique {string}") do |topic|
   click_on topic
+end
+Quand ("l'utilisateur clique sur le bouton de création d'item à coté du corpus {string} pour creer un item {string}") do |corpus, name|
+  find_button(:id => corpus).click
+  expect(page).to have_content("undefined")
+  find_button('Ajouter un attribut').click
+      fill_in "key", with: "name"
+      fill_in "value", with: name
+    find_button('Valider').click
 end
 # Outcomes
 
@@ -145,4 +173,3 @@ end
 Alors ("l'item {string} n'est pas affiché") do |item|
   expect(page).not_to have_content item
 end
-
